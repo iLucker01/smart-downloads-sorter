@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberArcade Hub by iLucker01 | Mini-Hry & Koleso šťastia</title>
+    <title>CyberArcade Hub by iLucker01 | 10 Arkádových Hier</title>
     <style>
         :root {
             --bg-main: #0b0e14;
@@ -135,7 +135,7 @@
 
         .nav-tabs {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.6rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
@@ -144,11 +144,11 @@
             background: var(--bg-card);
             color: var(--text-muted);
             border: 1px solid var(--border);
-            padding: 0.75rem 1.4rem;
+            padding: 0.6rem 1rem;
             border-radius: var(--radius);
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             transition: all 0.25s ease;
         }
 
@@ -184,11 +184,6 @@
             border-radius: var(--radius);
             padding: 2rem;
             margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
         }
 
         .hero-text h1 {
@@ -198,13 +193,13 @@
 
         .hero-text p {
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 700px;
             line-height: 1.5;
         }
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.5rem;
         }
 
@@ -225,27 +220,27 @@
         }
 
         .game-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .game-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
         }
 
         .game-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 1.2rem;
         }
 
         .game-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 1rem;
+            padding-top: 0.8rem;
             border-top: 1px solid var(--border);
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -256,7 +251,7 @@
             background: linear-gradient(90deg, var(--primary), #00b8d4);
             color: #05080f;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.65rem 1.2rem;
             border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
@@ -281,28 +276,26 @@
             box-shadow: var(--shadow);
         }
 
-        /* REACTION GAME */
+        /* UHELNÉ PRVKY HIER */
         .reaction-pad {
             width: 100%;
-            height: 280px;
+            height: 240px;
             border-radius: var(--radius);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             cursor: pointer;
             user-select: none;
-            margin: 1.5rem 0;
-            transition: background-color 0.15s;
+            margin: 1.2rem 0;
             background: #1e293b;
             border: 2px dashed var(--border);
         }
         .reaction-pad.waiting { background: #b91c1c; border-color: #ef4444; color: white; }
         .reaction-pad.ready { background: #15803d; border-color: #22c55e; color: white; }
 
-        /* SNAKE GAME */
         canvas#snakeCanvas {
             background: #080b10;
             border: 2px solid var(--primary);
@@ -312,16 +305,15 @@
             max-width: 100%;
         }
 
-        /* MEMORY GAME */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            max-width: 350px;
-            margin: 1.5rem auto;
+            gap: 0.8rem;
+            max-width: 320px;
+            margin: 1.2rem auto;
         }
         .memory-tile {
-            height: 90px;
+            height: 80px;
             background: var(--bg-main);
             border: 2px solid var(--border);
             border-radius: 12px;
@@ -334,13 +326,41 @@
             box-shadow: 0 0 15px var(--primary);
         }
 
-        /* GUESS GAME */
-        .guess-input-group {
+        .rps-choices {
             display: flex;
-            gap: 0.8rem;
-            max-width: 360px;
-            margin: 1.5rem auto;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
+        .rps-btn {
+            font-size: 2.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .rps-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary);
+        }
+
+        .clicker-target {
+            width: 140px; height: 140px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            margin: 1.5rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.4);
+            user-select: none;
+            transition: transform 0.1s;
+        }
+        .clicker-target:active { transform: scale(0.92); }
 
         input[type="number"], input[type="text"] {
             background: var(--bg-main);
@@ -360,13 +380,13 @@
             background: rgba(255, 255, 255, 0.04);
             margin-top: 1rem;
             font-weight: 600;
-            min-height: 54px;
+            min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* MODAL FOR LUCKY WHEEL */
+        /* MODAL KOLESO ŠŤASTIA */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -383,7 +403,7 @@
             border: 2px solid var(--primary);
             border-radius: var(--radius);
             padding: 2.5rem;
-            max-width: 450px;
+            max-width: 420px;
             width: 90%;
             text-align: center;
             box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
@@ -396,33 +416,30 @@
             color: var(--text-muted); font-size: 1.5rem;
             cursor: pointer;
         }
-        .close-modal:hover { color: var(--text-main); }
-        
         .wheel-display {
-            width: 160px; height: 160px;
+            width: 140px; height: 140px;
             border-radius: 50%;
             border: 4px solid var(--primary);
-            margin: 1.5rem auto;
+            margin: 1.2rem auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: radial-gradient(circle, #1e293b, var(--bg-main));
             color: var(--warning);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
         .achievements-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1rem;
         }
         .badge-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 1.2rem;
+            padding: 1rem;
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -434,7 +451,6 @@
             border-color: var(--success);
             background: linear-gradient(135deg, var(--bg-card), rgba(0, 230, 118, 0.08));
         }
-        .badge-icon { font-size: 2rem; }
 
         .history-table {
             width: 100%;
@@ -445,16 +461,11 @@
             overflow: hidden;
         }
         .history-table th, .history-table td {
-            padding: 0.9rem 1.2rem;
+            padding: 0.8rem 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
-        .history-table th {
-            background: rgba(0, 0, 0, 0.25);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
+        .history-table th { background: rgba(0, 0, 0, 0.25); color: var(--text-muted); font-size: 0.8rem; }
 
         footer {
             text-align: center;
@@ -478,7 +489,6 @@
             <span class="stat-label">Level</span>
             <span class="stat-value" id="ui-level">1</span>
         </div>
-        <!-- KLIKACÍ XP BAR OTVÁRA KOLESO ŠŤASTIA -->
         <div class="stat-item interactive-xp-widget" onclick="openWheelModal()" title="Klikni sem pre Koleso šťastia!">
             <span class="stat-label">XP Bar 🎁</span>
             <div class="xp-bar-container">
@@ -486,86 +496,82 @@
             </div>
         </div>
         <div class="stat-item">
-            <span class="stat-label">Celkové XP</span>
-            <span class="stat-value" id="ui-xp">0</span>
+            <span class="stat-label">XP</span>
+            <span class="stat-value" id="ui-xp">50</span>
         </div>
     </div>
 </header>
 
 <main>
+    <!-- NAVIGAČNÉ TABS PRE VŠETKÝCH 10 HIER + HUB + PROFIL -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('hub')">🏠 Herný Hub</button>
-        <button class="tab-btn" onclick="switchTab('reaction')">⚡ Reflex Test</button>
+        <button class="tab-btn active" onclick="switchTab('hub')">🏠 Hub</button>
+        <button class="tab-btn" onclick="switchTab('reaction')">⚡ Reflex</button>
         <button class="tab-btn" onclick="switchTab('snake')">🐍 Hadík</button>
-        <button class="tab-btn" onclick="switchTab('memory')">💡 Pamäťovka</button>
-        <button class="tab-btn" onclick="switchTab('guess')">🔐 Prelom Kód</button>
+        <button class="tab-btn" onclick="switchTab('memory')">💡 Pamäť</button>
+        <button class="tab-btn" onclick="switchTab('guess')">🔐 Kód</button>
+        <button class="tab-btn" onclick="switchTab('rps')">✂️ RPS</button>
+        <button class="tab-btn" onclick="switchTab('clicker')">🎯 Ťukanie</button>
+        <button class="tab-btn" onclick="switchTab('math')">➕ Počty</button>
+        <button class="tab-btn" onclick="switchTab('dice')">🎲 Kocka</button>
+        <button class="tab-btn" onclick="switchTab('target')">🏹 Terč</button>
         <button class="tab-btn" onclick="switchTab('profile')">🏆 Odznaky</button>
     </div>
 
-    <!-- TAB 1: HUB -->
+    <!-- 1. HUB -->
     <section id="tab-hub" class="section-panel active">
         <div class="hero-banner">
             <div class="hero-text">
                 <h1>Vitaj v mojej arkáde!</h1>
-                <p>Tento projekt vytvoril <strong>iLucker01</strong> len tak pre zábavu. Hraj hry, zbieraj XP, klikni na horný XP panel pre **Koleso šťastia** a odomykaj odznaky!</p>
-            </div>
-            <div style="min-width: 180px;">
-                <button class="btn btn-secondary" onclick="resetAllData()">Resetovať dáta</button>
+                <p>Tento web vytvoril <strong>iLucker01</strong> len pre zábavu. Máš tu presne 10 rôznych minihier. Klikni hore na XP bar pre Koleso šťastia a zbieraj XP!</p>
             </div>
         </div>
 
         <div class="games-grid">
             <div class="game-card">
-                <div>
-                    <div class="game-icon">⚡</div>
-                    <h3>Reflexný Test</h3>
-                    <p>Reaguj na zelenú farbu v milisekundách.</p>
-                </div>
-                <div>
-                    <div class="game-meta"><span>Najlepšie:</span><strong id="best-reaction" style="color: var(--primary);">-- ms</strong></div>
-                    <button class="btn" onclick="switchTab('reaction')">Hrať</button>
-                </div>
+                <div><div class="game-icon">⚡</div><h3>1. Reflexný Test</h3><p>Klikni hneď po zmene farby.</p></div>
+                <div><div class="game-meta"><span>Naj:</span><strong id="best-reaction" style="color:var(--primary)">--</strong></div><button class="btn" onclick="switchTab('reaction')">Hrať</button></div>
             </div>
-
             <div class="game-card">
-                <div>
-                    <div class="game-icon">🐍</div>
-                    <h3>Cyber Hadík</h3>
-                    <p>Klasická arkádovka so zberom energie.</p>
-                </div>
-                <div>
-                    <div class="game-meta"><span>Rekord:</span><strong id="best-snake" style="color: var(--primary);">0 bodov</strong></div>
-                    <button class="btn" onclick="switchTab('snake')">Hrať</button>
-                </div>
+                <div><div class="game-icon">🐍</div><h3>2. Cyber Hadík</h3><p>Zbieraj energetické jadrá.</p></div>
+                <div><div class="game-meta"><span>Rekord:</span><strong id="best-snake" style="color:var(--primary)">0</strong></div><button class="btn" onclick="switchTab('snake')">Hrať</button></div>
             </div>
-
             <div class="game-card">
-                <div>
-                    <div class="game-icon">💡</div>
-                    <h3>Pamäťový Flash</h3>
-                    <p>Zapamätaj si a zopakuj svietiacu sequenciu.</p>
-                </div>
-                <div>
-                    <div class="game-meta"><span>Naj Skóre:</span><strong id="best-memory" style="color: var(--primary);">0</strong></div>
-                    <button class="btn" onclick="switchTab('memory')">Hrať</button>
-                </div>
+                <div><div class="game-icon">💡</div><h3>3. Pamäťový Flash</h3><p>Zopakuj svietiacu sekvenciu.</p></div>
+                <div><div class="game-meta"><span>Úroveň:</span><strong id="best-memory" style="color:var(--primary)">0</strong></div><button class="btn" onclick="switchTab('memory')">Hrať</button></div>
             </div>
-
             <div class="game-card">
-                <div>
-                    <div class="game-icon">🔐</div>
-                    <h3>Prelom Kód</h3>
-                    <p>Ufádni tajné číslo od 1 do 100.</p>
-                </div>
-                <div>
-                    <div class="game-meta"><span>Výhry:</span><strong id="best-guess" style="color: var(--primary);">0x</strong></div>
-                    <button class="btn" onclick="switchTab('guess')">Hrať</button>
-                </div>
+                <div><div class="game-icon">🔐</div><h3>4. Prelom Kód</h3><p>Ufádni číslo od 1 do 100.</p></div>
+                <div><div class="game-meta"><span>Výhry:</span><strong id="best-guess" style="color:var(--primary)">0x</strong></div><button class="btn" onclick="switchTab('guess')">Hrať</button></div>
+            </div>
+            <div class="game-card">
+                <div><div class="game-icon">✂️</div><h3>5. Kameň, Papier, Nožnice</h3><p>Súboje proti počítaču.</p></div>
+                <div><div class="game-meta"><span>Skóre:</span><strong id="best-rps" style="color:var(--primary)">0 výhier</strong></div><button class="btn" onclick="switchTab('rps')">Hrať</button></div>
+            </div>
+            <div class="game-card">
+                <div><div class="game-icon">🎯</div><h3>6. Rýchle Ťukanie</h3><p>Klikni na terč 15-krát čo najrýchlejšie.</p></div>
+                <div><div class="game-meta"><span>Naj čas:</span><strong id="best-clicker" style="color:var(--primary)">--</strong></div><button class="btn" onclick="switchTab('clicker')">Hrať</button></div>
+            </div>
+            <div class="game-card">
+                <div><div class="game-icon">➕</div><h3>7. Rýchle Počty</h3><p>Rieš rýchle matematické príklady.</p></div>
+                <div><div class="game-meta"><span>Bodov:</span><strong id="best-math" style="color:var(--primary)">0</strong></div><button class="btn" onclick="switchTab('math')">Hrať</button></div>
+            </div>
+            <div class="game-card">
+                <div><div class="game-icon">🎲</div><h3>8. Hádanie Kocky</h3><p>Ufádni, aké číslo padne na kocke.</p></div>
+                <div><div class="game-meta"><span>Úspechy:</span><strong id="best-dice" style="color:var(--primary)">0</strong></div><button class="btn" onclick="switchTab('dice')">Hrať</button></div>
+            </div>
+            <div class="game-card">
+                <div><div class="game-icon">🏹</div><h3>9. Strelec na Terč</h3><p>Zastav ukazovateľ v strede terča.</p></div>
+                <div><div class="game-meta"><span>Skóre:</span><strong id="best-target" style="color:var(--primary)">0</strong></div><button class="btn" onclick="switchTab('target')">Hrať</button></div>
+            </div>
+            <div class="game-card">
+                <div><div class="game-icon">🎁</div><h3>10. Koleso Šťastia</h3><p>Toč za 10 XP a vyhraj až 100 XP.</p></div>
+                <div><div class="game-meta"><span>Bonus:</span><strong style="color:var(--warning)">Jackpot</strong></div><button class="btn btn-warning" onclick="openWheelModal()">Točiť</button></div>
             </div>
         </div>
     </section>
 
-    <!-- TAB 2: REACTION -->
+    <!-- 2. REFLEX TEST -->
     <section id="tab-reaction" class="section-panel">
         <div class="arena-box">
             <h2>⚡ Reflexný Test</h2>
@@ -574,25 +580,25 @@
         </div>
     </section>
 
-    <!-- TAB 3: SNAKE -->
+    <!-- 3. HADÍK -->
     <section id="tab-snake" class="section-panel">
         <div class="arena-box">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                 <h2>🐍 Cyber Hadík</h2>
                 <div style="font-size: 1.2rem; font-weight: 700;">Skóre: <span id="snake-score" style="color: var(--primary);">0</span></div>
             </div>
-            <canvas id="snakeCanvas" width="400" height="400"></canvas>
-            <div style="max-width: 240px; margin: 1rem auto 0;">
+            <canvas id="snakeCanvas" width="380" height="380"></canvas>
+            <div style="max-width: 200px; margin: 1rem auto 0;">
                 <button class="btn" id="snake-start-btn" onclick="startSnakeGame()">Spustiť hru</button>
             </div>
         </div>
     </section>
 
-    <!-- TAB 4: MEMORY -->
+    <!-- 4. PAMÄŤ -->
     <section id="tab-memory" class="section-panel">
         <div class="arena-box">
             <h2>💡 Pamäťový Flash</h2>
-            <p style="color: var(--text-muted); margin-top: 0.4rem;">Sleduj svetlá a zopakuj ich kombináciu! Úroveň: <strong id="memory-level" style="color: var(--primary);">1</strong></p>
+            <p style="color: var(--text-muted);">Sleduj svetlá. Úroveň: <strong id="memory-level" style="color: var(--primary);">1</strong></p>
             <div class="memory-grid">
                 <div class="memory-tile" onclick="clickMemoryTile(0)" id="mt-0"></div>
                 <div class="memory-tile" onclick="clickMemoryTile(1)" id="mt-1"></div>
@@ -601,33 +607,99 @@
                 <div class="memory-tile" onclick="clickMemoryTile(4)" id="mt-4"></div>
                 <div class="memory-tile" onclick="clickMemoryTile(5)" id="mt-5"></div>
             </div>
-            <button class="btn" id="memory-start-btn" style="max-width: 220px; margin: 0 auto;" onclick="startMemoryGame()">Spustiť Pamäťovku</button>
+            <button class="btn" id="memory-start-btn" style="max-width: 200px; margin: 0 auto;" onclick="startMemoryGame()">Spustiť</button>
         </div>
     </section>
 
-    <!-- TAB 5: GUESS -->
+    <!-- 5. PRELOM KÓD -->
     <section id="tab-guess" class="section-panel">
         <div class="arena-box">
-            <h2>🔐 Prelom Bezpečnostný Kód</h2>
-            <p style="color: var(--text-muted); margin-top: 0.5rem;">Zostávajúce pokusy: <strong id="guess-attempts" style="color: var(--primary);">7</strong></p>
-            <div class="guess-input-group">
-                <input type="number" id="guess-input" min="1" max="100" placeholder="Tip (1-100)" onkeypress="if(event.key==='Enter') submitGuess()">
+            <h2>🔐 Prelom Kód (1-100)</h2>
+            <p style="color: var(--text-muted);">Zostávajúce pokusy: <strong id="guess-attempts" style="color: var(--primary);">7</strong></p>
+            <div class="guess-input-group" style="display:flex; gap:0.5rem; max-width:320px; margin: 1.2rem auto;">
+                <input type="number" id="guess-input" min="1" max="100" placeholder="Tip 1-100">
                 <button class="btn" style="width: auto;" onclick="submitGuess()">Overiť</button>
             </div>
-            <div id="guess-feedback" class="feedback-banner">Čakám na tip...</div>
-            <div style="max-width: 200px; margin: 1.2rem auto 0;">
-                <button class="btn btn-secondary" onclick="initGuessGame()">Nový kód</button>
-            </div>
+            <div id="guess-feedback" class="feedback-banner">Zadaj svoj tip...</div>
+            <div style="max-width: 180px; margin: 1rem auto 0;"><button class="btn btn-secondary" onclick="initGuessGame()">Nový kód</button></div>
         </div>
     </section>
 
-    <!-- TAB 6: PROFILE -->
+    <!-- 6. KAMEŇ, PAPIER, NOŽNICE -->
+    <section id="tab-rps" class="section-panel">
+        <div class="arena-box">
+            <h2>✂️ Kameň, Papier, Nožnice</h2>
+            <p style="color: var(--text-muted);">Vyber svoju zbraň proti AI:</p>
+            <div class="rps-choices">
+                <button class="rps-btn" onclick="playRPS('rock')">🪨</button>
+                <button class="rps-btn" onclick="playRPS('paper')">📄</button>
+                <button class="rps-btn" onclick="playRPS('scissors')">✂️</button>
+            </div>
+            <div id="rps-feedback" class="feedback-banner">Zatiaľ nerozhodne... Výhry: <span id="rps-wins" style="color:var(--primary); margin-left:5px;">0</span></div>
+        </div>
+    </section>
+
+    <!-- 7. RÝCHLE ŤUKANIE -->
+    <section id="tab-clicker" class="section-panel">
+        <div class="arena-box">
+            <h2>🎯 Rýchle Ťukanie</h2>
+            <p style="color: var(--text-muted);">Klikni na terč 15-krát čo najrýchlejšie!</p>
+            <div id="clicker-box" class="clicker-target" onclick="clickTargetGame()">KLIKNI!</div>
+            <div id="clicker-info" style="font-weight: 600; color: var(--primary);">Zatiaľ nehrané</div>
+        </div>
+    </section>
+
+    <!-- 8. RÝCHLE POČTY -->
+    <section id="tab-math" class="section-panel">
+        <div class="arena-box">
+            <h2>➕ Rýchle Počty</h2>
+            <p id="math-question" style="font-size: 1.5rem; font-weight: bold; color: var(--primary); margin: 1rem 0;">2 + 3 = ?</p>
+            <div style="display:flex; gap:0.5rem; max-width:280px; margin: 0 auto 1rem;">
+                <input type="number" id="math-input" placeholder="Odpoveď">
+                <button class="btn" style="width: auto;" onclick="submitMath()">Odoslať</button>
+            </div>
+            <div id="math-feedback" class="feedback-banner">Správne odpovede ti prinesú XP!</div>
+        </div>
+    </section>
+
+    <!-- 9. HÁDANIE KOCKY -->
+    <section id="tab-dice" class="section-panel">
+        <div class="arena-box">
+            <h2>🎲 Hádanie Kocky (1-6)</h2>
+            <p style="color: var(--text-muted);">Tipni si, aké číslo padne na hádzanej kocke:</p>
+            <div style="display:flex; justify-content:center; gap:0.5rem; margin: 1.2rem 0;">
+                <button class="btn btn-secondary" style="width:50px;" onclick="guessDice(1)">1</button>
+                <button class="btn btn-secondary" style="width:50px;" onclick="guessDice(2)">2</button>
+                <button class="btn btn-secondary" style="width:50px;" onclick="guessDice(3)">3</button>
+                <button class="btn btn-secondary" style="width:50px;" onclick="guessDice(4)">4</button>
+                <button class="btn btn-secondary" style="width:50px;" onclick="guessDice(5)">5</button>
+                <button class="btn btn-secondary" style="width:50px;" onclick="guessDice(6)">6</button>
+            </div>
+            <div id="dice-feedback" class="feedback-banner">Vyber číslo od 1 do 6.</div>
+        </div>
+    </section>
+
+    <!-- 10. STRELEC NA TERČ -->
+    <section id="tab-target" class="section-panel">
+        <div class="arena-box">
+            <h2>🏹 Strelec na Terč</h2>
+            <p style="color: var(--text-muted);">Zastav posuvník v strede pre max XP!</p>
+            <div style="background:#1e293b; height:30px; border-radius:15px; position:relative; margin: 2rem 0; overflow:hidden; border:1px solid var(--border);">
+                <div id="target-slider" style="width:20px; height:100%; background:var(--primary); position:absolute; left:0; border-radius:10px;"></div>
+                <div style="width:30px; height:100%; background:var(--success); position:absolute; left:45%; opacity:0.7;"></div>
+            </div>
+            <button class="btn" onclick="stopTarget()" id="target-btn">Vystreliť!</button>
+            <div id="target-feedback" class="feedback-banner" style="margin-top:1rem;">Pripravený?</div>
+        </div>
+    </section>
+
+    <!-- PROFIL & ODZNAKY -->
     <section id="tab-profile" class="section-panel">
         <h2 style="margin-bottom: 1rem;">🏆 Odomknuté odznaky</h2>
         <div class="achievements-list" id="achievements-container"></div>
-        <h2 style="margin: 2.5rem 0 1rem;">📜 História aktivít</h2>
+        <h2 style="margin: 2rem 0 1rem;">📜 História aktivít</h2>
         <table class="history-table">
-            <thead><tr><th>Akcia</th><th>Výsledok</th><th>XP</th></tr></thead>
+            <thead><tr><th>Hra</th><th>Výsledek</th><th>XP</th></tr></thead>
             <tbody id="history-tbody"><tr><td colspan="3" style="color: var(--text-muted);">Zatiaľ žiadne záznamy.</td></tr></tbody>
         </table>
     </section>
@@ -636,32 +708,27 @@
 <!-- KOLESO ŠŤASTIA MODAL -->
 <div id="wheel-modal" class="modal-overlay">
     <div class="modal-card">
-        <button class="close-modal" onclick="closeWheelModal()">&times;</button>
+        <button class="close-modal" onclick="closeWheelModal()" style="position:absolute; top:15px; right:20px; background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;">&times;</button>
         <h2>🎁 Koleso Šťastia od iLucker01</h2>
-        <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem;">Točenie stojí <strong>10 XP</strong>. Vyhratá výhra môže byť od 1 do 100 XP!</p>
-        
+        <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.85rem;">Stojí <strong>10 XP</strong>. Vyhrať môžeš 1 až 100 XP!</p>
         <div class="wheel-display" id="wheel-display-box">?</div>
-        
         <div id="wheel-msg" style="margin-bottom: 1rem; font-weight: 600; min-height: 24px; color: var(--primary);"></div>
-        
         <button class="btn btn-warning" onclick="spinWheel()">Zatočiť koleso (-10 XP)</button>
     </div>
 </div>
 
 <footer>
-    CyberArcade Hub • Vytvoril iLucker01 • Všetky práva vyhradené (Len pre zábavu!)
+    CyberArcade Hub (10 hier) • Vytvoril iLucker01 • Len pre zábavu!
 </footer>
 
 <script>
-    const DEFAULT_STATE = { xp: 50, bestReaction: null, bestSnake: 0, bestMemory: 0, guessWins: 0, gamesPlayed: 0, history: [] };
+    const DEFAULT_STATE = { xp: 50, bestReaction: null, bestSnake: 0, bestMemory: 0, guessWins: 0, rpsWins: 0, clickerBest: null, mathScore: 0, diceWins: 0, targetScore: 0, gamesPlayed: 0, history: [] };
     let state = JSON.parse(localStorage.getItem('cyberArcadeState')) || { ...DEFAULT_STATE };
 
     const ACHIEVEMENTS = [
-        { id: 'first_game', title: 'Prvý štart', desc: 'Odohraj hru alebo toč koleso', icon: '🎮', check: s => s.gamesPlayed >= 1 },
+        { id: 'first_game', title: 'Prvý štart', desc: 'Zahraj si akúkoľvek hru', icon: '🎮', check: s => s.gamesPlayed >= 1 },
         { id: 'gambler', title: 'Šťastkár', desc: 'Zatoč si Koleso šťastia', icon: '🎁', check: s => s.history.some(h => h.game === 'Koleso šťastia') },
-        { id: 'fast_hands', title: 'Bleskové reflexy', desc: 'Pod 250 ms v Reflex Teste', icon: '⚡', check: s => s.bestReaction !== null && s.bestReaction < 250 },
-        { id: 'snake_master', title: 'Hadí kráľ', desc: '100+ bodov v Hadíkovi', icon: '🐍', check: s => s.bestSnake >= 100 },
-        { id: 'level_5', title: 'Veterán', desc: 'Dosiahni Level 5 (500 XP)', icon: '👑', check: s => s.xp >= 500 }
+        { id: 'all_rounder', title: 'Zberateľ hier', desc: 'Dosiahni Level 3', icon: '👑', check: s => s.xp >= 200 }
     ];
 
     function saveState() {
@@ -677,34 +744,32 @@
         saveState();
     }
 
-    function resetAllData() {
-        if (confirm('Naozaj vymazať dáta?')) {
-            state = { ...DEFAULT_STATE };
-            saveState();
-        }
-    }
-
     function updateUI() {
         const level = Math.floor(state.xp / 100) + 1;
         const currentLevelXP = state.xp % 100;
-
         document.getElementById('ui-level').textContent = level;
         document.getElementById('ui-xp').textContent = state.xp;
         document.getElementById('ui-xp-bar').style.width = `${currentLevelXP}%`;
 
-        document.getElementById('best-reaction').textContent = state.bestReaction ? `${state.bestReaction} ms` : '-- ms';
-        document.getElementById('best-snake').textContent = `${state.bestSnake} bodov`;
+        document.getElementById('best-reaction').textContent = state.bestReaction ? `${state.bestReaction}ms` : '--';
+        document.getElementById('best-snake').textContent = state.bestSnake;
         document.getElementById('best-memory').textContent = state.bestMemory;
         document.getElementById('best-guess').textContent = `${state.guessWins}x`;
+        document.getElementById('best-rps').textContent = `${state.rpsWins} výhier`;
+        document.getElementById('best-clicker').textContent = state.clickerBest ? `${state.clickerBest}s` : '--';
+        document.getElementById('best-math').textContent = state.mathScore;
+        document.getElementById('best-dice').textContent = state.diceWins;
+        document.getElementById('best-target').textContent = state.targetScore;
+        document.getElementById('rps-wins').textContent = state.rpsWins;
 
         document.getElementById('achievements-container').innerHTML = ACHIEVEMENTS.map(ach => {
             const unlocked = ach.check(state);
-            return `<div class="badge-card ${unlocked ? 'unlocked' : ''}"><div class="badge-icon">${ach.icon}</div><div><div style="font-weight: 700;">${ach.title} ${unlocked ? '✅' : '🔒'}</div><div style="font-size: 0.85rem; color: var(--text-muted);">${ach.desc}</div></div></div>`;
+            return `<div class="badge-card ${unlocked ? 'unlocked' : ''}"><div style="font-size:1.8rem;">${ach.icon}</div><div><div style="font-weight:700;">${ach.title} ${unlocked ? '✅' : '🔒'}</div><div style="font-size:0.8rem; color:var(--text-muted);">${ach.desc}</div></div></div>`;
         }).join('');
 
         const tbody = document.getElementById('history-tbody');
         if (state.history.length > 0) {
-            tbody.innerHTML = state.history.map(item => `<tr><td><strong>${item.game}</strong></td><td>${item.result}</td><td style="color: var(--success); font-weight: 700;">${item.xp}</td></tr>`).join('');
+            tbody.innerHTML = state.history.map(item => `<tr><td><strong>${item.game}</strong></td><td>${item.result}</td><td style="color:var(--success); font-weight:700;">${item.xp}</td></tr>`).join('');
         }
     }
 
@@ -716,92 +781,64 @@
         if (activeBtn) activeBtn.classList.add('active');
     }
 
-    // KOLESO ŠŤASTIA LOGIKA (Balanced 1-100 XP, cena 10 XP)
-    function openWheelModal() {
-        document.getElementById('wheel-modal').classList.add('open');
-        document.getElementById('wheel-display-box').textContent = '?';
-        document.getElementById('wheel-msg').textContent = 'Pripravený na točenie?';
-    }
-    function closeWheelModal() {
-        document.getElementById('wheel-modal').classList.remove('open');
-    }
-
+    // KOLESO ŠŤASTIA
+    function openWheelModal() { document.getElementById('wheel-modal').classList.add('open'); document.getElementById('wheel-display-box').textContent = '?'; document.getElementById('wheel-msg').textContent = 'Pripravený?'; }
+    function closeWheelModal() { document.getElementById('wheel-modal').classList.remove('open'); }
     function spinWheel() {
-        if (state.xp < 10) {
-            document.getElementById('wheel-msg').textContent = '❌ Nemáš dostatok XP (potrebuješ 10 XP)!';
-            return;
-        }
-
-        // Strhneme 10 XP poplatok za točenie
+        if (state.xp < 10) { document.getElementById('wheel-msg').textContent = '❌ Nedostatok XP (treba 10)!'; return; }
         state.xp -= 10;
-
-        const box = document.getElementById('wheel-display-box');
-        const msg = document.getElementById('wheel-msg');
-        msg.textContent = 'Koleso sa točí... 🎲';
-
+        const box = document.getElementById('wheel-display-box'), msg = document.getElementById('wheel-msg');
+        msg.textContent = 'Točí sa... 🎲';
         let counter = 0;
         let interval = setInterval(() => {
             box.textContent = Math.floor(Math.random() * 100) + 1;
             counter++;
-            if (counter > 12) {
+            if (counter > 10) {
                 clearInterval(interval);
-                
-                // Balancované šance (vygenerujeme výhru s dôrazom na častejšie menšie/stredné výhry a vzácny jackpot)
-                let rand = Math.random();
-                let prize = 1;
-                if (rand > 0.95) prize = Math.floor(Math.random() * 41) + 60; // 60 - 100 XP (5% šanca)
-                else if (rand > 0.75) prize = Math.floor(Math.random() * 30) + 25; // 25 - 54 XP (20% šanca)
-                else if (rand > 0.35) prize = Math.floor(Math.random() * 14) + 11; // 11 - 24 XP (40% šanca)
-                else prize = Math.floor(Math.random() * 10) + 1; // 1 - 10 XP (35% šanca)
-
+                let rand = Math.random(), prize = 1;
+                if (rand > 0.95) prize = Math.floor(Math.random() * 41) + 60;
+                else if (rand > 0.75) prize = Math.floor(Math.random() * 30) + 25;
+                else if (rand > 0.35) prize = Math.floor(Math.random() * 14) + 11;
+                else prize = Math.floor(Math.random() * 10) + 1;
                 box.textContent = `+${prize}`;
-                if (prize >= 50) {
-                    msg.textContent = `🔥 JACKPOT! Vyhral si neuveriteľných ${prize} XP!`;
-                } else if (prize >= 15) {
-                    msg.textContent = `🎉 Paráda! Vyhral si ${prize} XP!`;
-                } else {
-                    msg.textContent = `👍 Vyhral si ${prize} XP. Skús to znova!`;
-                }
-
+                msg.textContent = prize >= 50 ? `🔥 JACKPOT! +${prize} XP!` : `🎉 Vyhral si ${prize} XP!`;
                 addXP(prize, 'Koleso šťastia', `Výhra ${prize} XP`);
             }
         }, 80);
     }
 
-    // REACTION TEST
+    // 1. REFLEX
     let reactionState = 'idle', reactionTimeout = null, reactionStartTime = 0;
     function handleReactionClick() {
-        const pad = document.getElementById('reaction-pad'), info = document.getElementById('reaction-info');
+        const pad = document.getElementById('reaction-pad');
         if (reactionState === 'idle') {
             reactionState = 'waiting'; pad.className = 'reaction-pad waiting'; pad.textContent = 'Čakaj na zelenú...';
             reactionTimeout = setTimeout(() => {
                 reactionState = 'ready'; pad.className = 'reaction-pad ready'; pad.textContent = 'KLIKNI!';
                 reactionStartTime = performance.now();
-            }, Math.floor(Math.random() * 3000) + 1500);
+            }, Math.floor(Math.random() * 2500) + 1500);
         } else if (reactionState === 'waiting') {
-            clearTimeout(reactionTimeout); reactionState = 'idle';
-            pad.className = 'reaction-pad'; pad.textContent = 'Príliš skoro!';
+            clearTimeout(reactionTimeout); reactionState = 'idle'; pad.className = 'reaction-pad'; pad.textContent = 'Príliš skoro!';
         } else if (reactionState === 'ready') {
             const diff = Math.round(performance.now() - reactionStartTime);
-            reactionState = 'idle'; pad.className = 'reaction-pad'; pad.textContent = `Čas: ${diff} ms`;
-            let earned = diff < 220 ? 50 : diff < 320 ? 30 : 15;
+            reactionState = 'idle'; pad.className = 'reaction-pad'; pad.textContent = `Čas: ${diff}ms`;
+            let earned = diff < 220 ? 40 : 20;
             if (!state.bestReaction || diff < state.bestReaction) state.bestReaction = diff;
-            addXP(earned, 'Reflex Test', `${diff} ms`);
+            addXP(earned, 'Reflex Test', `${diff}ms`);
         }
     }
 
-    // SNAKE GAME
+    // 2. HADÍK
     const canvas = document.getElementById('snakeCanvas'), ctx = canvas.getContext('2d');
     const gridSize = 20, tileCount = canvas.width / gridSize;
-    let snake = [], food = {x:10, y:10}, dx = 0, dy = 0, snakeScore = 0, snakeInterval = null, isSnakeRunning = false;
-
+    let snake = [], food = {x:5, y:5}, dx = 1, dy = 0, snakeScore = 0, snakeInterval = null, isSnakeRunning = false;
     function startSnakeGame() {
         snake = [{x:10, y:10}, {x:9, y:10}, {x:8, y:10}]; dx = 1; dy = 0; snakeScore = 0; isSnakeRunning = true;
         document.getElementById('snake-score').textContent = snakeScore;
-        document.getElementById('snake-start-btn').textContent = 'Reštartovať';
+        document.getElementById('snake-start-btn').textContent = 'Reštart';
         spawnFood();
         if (snakeInterval) clearInterval(snakeInterval);
-        snakeInterval = setInterval(gameLoopSnake, 110);
+        snakeInterval = setInterval(gameLoopSnake, 120);
     }
     function spawnFood() { food = {x: Math.floor(Math.random()*tileCount), y: Math.floor(Math.random()*tileCount)}; }
     function gameLoopSnake() {
@@ -810,14 +847,14 @@
         if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || snake.some(s => s.x === head.x && s.y === head.y)) {
             isSnakeRunning = false; clearInterval(snakeInterval);
             if (snakeScore > state.bestSnake) state.bestSnake = snakeScore;
-            addXP(Math.max(10, Math.floor(snakeScore/2)), 'Cyber Hadík', `${snakeScore} bodov`);
+            addXP(Math.max(10, snakeScore), 'Cyber Hadík', `${snakeScore} bodov`);
             return;
         }
         snake.unshift(head);
         if (head.x === food.x && head.y === food.y) { snakeScore += 10; document.getElementById('snake-score').textContent = snakeScore; spawnFood(); }
         else snake.pop();
         ctx.fillStyle = '#080b10'; ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle = '#ff0055'; ctx.beginPath(); ctx.arc(food.x*gridSize+10, food.y*gridSize+10, 8, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#ff0055'; ctx.fillRect(food.x*gridSize+1, food.y*gridSize+1, gridSize-2, gridSize-2);
         snake.forEach((seg, i) => { ctx.fillStyle = i===0 ? '#00f0ff' : '#00b8d4'; ctx.fillRect(seg.x*gridSize+1, seg.y*gridSize+1, gridSize-2, gridSize-2); });
     }
     window.addEventListener('keydown', e => {
@@ -829,85 +866,180 @@
         if ((k==='arrowright'||k==='d') && dx===0) {dx=1; dy=0; e.preventDefault();}
     });
 
-    // MEMORY GAME
+    // 3. PAMÄŤ
     let memorySeq = [], playerSeq = [], memoryLevel = 1, memoryPlaying = false;
     function startMemoryGame() {
         memorySeq = []; memoryLevel = 1; playerSeq = [];
         document.getElementById('memory-level').textContent = memoryLevel;
-        document.getElementById('memory-start-btn').textContent = 'Hra prebieha...';
+        document.getElementById('memory-start-btn').textContent = 'Pamätaj...';
         nextMemoryRound();
     }
     function nextMemoryRound() {
-        playerSeq = [];
-        memorySeq.push(Math.floor(Math.random() * 6));
-        playMemorySequence();
-    }
-    function playMemorySequence() {
-        memoryPlaying = true;
-        let i = 0;
+        playerSeq = []; memorySeq.push(Math.floor(Math.random() * 6));
+        let i = 0; memoryPlaying = true;
         let interval = setInterval(() => {
-            highlightTile(memorySeq[i]);
-            i++;
-            if (i >= memorySeq.length) {
-                clearInterval(interval);
-                setTimeout(() => memoryPlaying = false, 400);
-            }
+            highlightTile(memorySeq[i]); i++;
+            if (i >= memorySeq.length) { clearInterval(interval); setTimeout(() => memoryPlaying = false, 400); }
         }, 600);
     }
-    function highlightTile(index) {
-        const tile = document.getElementById(`mt-${index}`);
-        tile.classList.add('active');
-        setTimeout(() => tile.classList.remove('active'), 300);
+    function highlightTile(idx) {
+        const t = document.getElementById(`mt-${idx}`);
+        t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 300);
     }
-    function clickMemoryTile(index) {
+    function clickMemoryTile(idx) {
         if (memoryPlaying) return;
-        highlightTile(index);
-        playerSeq.push(index);
-        let currentIndex = playerSeq.length - 1;
-        if (playerSeq[currentIndex] !== memorySeq[currentIndex]) {
-            alert(`Koniec hry! Dosiahol si úroveň ${memoryLevel}`);
+        highlightTile(idx); playerSeq.push(idx);
+        let cur = playerSeq.length - 1;
+        if (playerSeq[cur] !== memorySeq[cur]) {
+            alert(`Koniec! Úroveň: ${memoryLevel}`);
             if (memoryLevel > state.bestMemory) state.bestMemory = memoryLevel;
-            addXP(memoryLevel * 10, 'Pamäťový Flash', `Úroveň ${memoryLevel}`);
-            document.getElementById('memory-start-btn').textContent = 'Spustiť Pamäťovku';
+            addXP(memoryLevel * 5, 'Pamäťový Flash', `Úroveň ${memoryLevel}`);
+            document.getElementById('memory-start-btn').textContent = 'Spustiť';
             return;
         }
         if (playerSeq.length === memorySeq.length) {
-            memoryLevel++;
-            document.getElementById('memory-level').textContent = memoryLevel;
+            memoryLevel++; document.getElementById('memory-level').textContent = memoryLevel;
             setTimeout(nextMemoryRound, 1000);
         }
     }
 
-    // GUESS GAME
-    let secretCode = 0, attemptsLeft = 7, guessGameOver = false;
+    // 4. PRELOM KÓD
+    let secretCode = 42, attemptsLeft = 7;
     function initGuessGame() {
-        secretCode = Math.floor(Math.random() * 100) + 1; attemptsLeft = 7; guessGameOver = false;
+        secretCode = Math.floor(Math.random() * 100) + 1; attemptsLeft = 7;
         document.getElementById('guess-attempts').textContent = attemptsLeft;
         document.getElementById('guess-input').value = '';
-        document.getElementById('guess-feedback').textContent = 'Nový kód pripravený!';
+        document.getElementById('guess-feedback').textContent = 'Hádaj číslo 1-100...';
     }
     function submitGuess() {
-        if (guessGameOver) return;
         const val = parseInt(document.getElementById('guess-input').value, 10);
         const fb = document.getElementById('guess-feedback');
-        if (isNaN(val) || val < 1 || val > 100) { fb.textContent = 'Zadaj číslo 1-100!'; return; }
+        if (isNaN(val)) return;
         attemptsLeft--; document.getElementById('guess-attempts').textContent = attemptsLeft;
         if (val === secretCode) {
-            guessGameOver = true; state.guessWins++;
-            let earned = (attemptsLeft + 1) * 15;
-            fb.textContent = `🎉 Uhádnuté! +${earned} XP`;
-            addXP(earned, 'Prelom Kód', `Výhra (${secretCode})`);
-        } else if (attemptsLeft === 0) {
-            guessGameOver = true;
-            fb.textContent = `❌ Kód bol ${secretCode}.`;
+            state.guessWins++;
+            addXP(40, 'Prelom Kód', `Výhra (${secretCode})`);
+            fb.textContent = `🎉 Správne! Kód bol ${secretCode}.`;
+        } else if (attemptsLeft <= 0) {
+            fb.textContent = `❌ Koniec! Kód bol ${secretCode}.`;
             addXP(5, 'Prelom Kód', 'Prehra');
         } else {
             fb.textContent = val < secretCode ? `⬆️ Väčšie ako ${val}` : `⬇️ Menšie ako ${val}`;
         }
     }
 
+    // 5. RPS
+    function playRPS(userChoice) {
+        const choices = ['rock', 'paper', 'scissors'];
+        const aiChoice = choices[Math.floor(Math.random() * 3)];
+        const icons = { rock: '🪨', paper: '📄', scissors: '✂️' };
+        const fb = document.getElementById('rps-feedback');
+        if (userChoice === aiChoice) {
+            fb.textContent = `Remíza! (Počítač mal ${icons[aiChoice]})`;
+        } else if ((userChoice==='rock'&&aiChoice==='scissors') || (userChoice==='paper'&&aiChoice==='rock') || (userChoice==='scissors'&&aiChoice==='paper')) {
+            state.rpsWins++;
+            addXP(15, 'Kameň, Papier, Nožnice', 'Výhra');
+            fb.textContent = `🎉 Vyhral si! (AI mala ${icons[aiChoice]}) Výhry: ${state.rpsWins}`;
+        } else {
+            fb.textContent = `❌ Prehral si! (AI mala ${icons[aiChoice]})`;
+            addXP(5, 'Kameň, Papier, Nožnice', 'Prehra');
+        }
+        updateUI();
+    }
+
+    // 6. KLIKER
+    let clickerCount = 0, clickerStartTime = 0, clickerActive = false;
+    function clickTargetGame() {
+        const info = document.getElementById('clicker-info');
+        if (!clickerActive) {
+            clickerActive = true; clickerCount = 1; clickerStartTime = performance.now();
+            info.textContent = `Kliknuté: 1 / 15`;
+        } else {
+            clickerCount++;
+            info.textContent = `Kliknuté: ${clickerCount} / 15`;
+            if (clickerCount >= 15) {
+                clickerActive = false;
+                let duration = ((performance.now() - clickerStartTime) / 1000).toFixed(2);
+                if (!state.clickerBest || duration < state.clickerBest) state.clickerBest = duration;
+                addXP(25, 'Rýchle Ťukanie', `${duration}s`);
+                info.textContent = `Hotovo za ${duration}s!`;
+            }
+        }
+    }
+
+    // 7. MATH
+    let mathA = 0, mathB = 0, mathOp = '+';
+    function nextMath() {
+        mathA = Math.floor(Math.random() * 20) + 1;
+        mathB = Math.floor(Math.random() * 20) + 1;
+        mathOp = Math.random() > 0.5 ? '+' : '-';
+        if (mathOp === '-' && mathA < mathB) [mathA, mathB] = [mathB, mathA];
+        document.getElementById('math-question').textContent = `${mathA} ${mathOp} ${mathB} = ?`;
+        document.getElementById('math-input').value = '';
+    }
+    function submitMath() {
+        const val = parseInt(document.getElementById('math-input').value, 10);
+        const correct = mathOp === '+' ? mathA + mathB : mathA - mathB;
+        const fb = document.getElementById('math-feedback');
+        if (val === correct) {
+            state.mathScore++;
+            addXP(15, 'Rýchle Počty', 'Správne');
+            fb.textContent = '🎉 Správne! Ďalší príklad...';
+        } else {
+            fb.textContent = `❌ Nesprávne. Správne bolo ${correct}.`;
+            addXP(2, 'Rýchle Počty', 'Chyba');
+        }
+        nextMath();
+        updateUI();
+    }
+
+    // 8. DICE
+    function guessDice(num) {
+        const rolled = Math.floor(Math.random() * 6) + 1;
+        const fb = document.getElementById('dice-feedback');
+        if (num === rolled) {
+            state.diceWins++;
+            addXP(30, 'Hádanie Kocky', `Ufádané (${rolled})`);
+            fb.textContent = `🎉 Padla ${rolled}! Uhádol si!`;
+        } else {
+            fb.textContent = `❌ Padla ${rolled}. Skús znova!`;
+            addXP(5, 'Hádanie Kocky', `Padla ${rolled}`);
+        }
+        updateUI();
+    }
+
+    // 9. TARGET
+    let sliderPos = 0, sliderDir = 2, sliderInterval = null, sliderRunning = false;
+    function startTargetLoop() {
+        const slider = document.getElementById('target-slider');
+        if (sliderRunning) return;
+        sliderRunning = true;
+        sliderInterval = setInterval(() => {
+            sliderPos += sliderDir;
+            if (sliderPos > 92 || sliderPos < 0) sliderDir *= -1;
+            slider.style.left = sliderPos + '%';
+        }, 20);
+    }
+    function stopTarget() {
+        if (!sliderRunning) { startTargetLoop(); return; }
+        clearInterval(sliderInterval); sliderRunning = false;
+        const fb = document.getElementById('target-feedback');
+        // Stred je medzi 45% a 55%
+        if (sliderPos >= 43 && sliderPos <= 53) {
+            state.targetScore += 10;
+            addXP(35, 'Strelec na Terč', 'Presný zásah!');
+            fb.textContent = '🎯 BINGO! Presný zásah do stredu!';
+        } else {
+            addXP(10, 'Strelec na Terč', 'Vedľa');
+            fb.textContent = `💥 Tesne vedľa (pozícia ${Math.round(sliderPos)}%).`;
+        }
+        updateUI();
+    }
+
     updateUI();
     initGuessGame();
+    nextMath();
+    startTargetLoop();
 </script>
 </body>
 </html>
