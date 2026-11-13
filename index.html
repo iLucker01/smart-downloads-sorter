@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberArcade Hub | Mini-Hry & Štatistiky</title>
+    <style>
+        :root {
+            --bg-main: #0b0e14;
+            --bg-card: #151b26;
+            --bg-card-hover: #1c2433;
+            --primary: #00f0ff;
+            --secondary: #7000ff;
+            --accent: #ff0055;
+            --success: #00e676;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            --border: #263042;
+            --radius: 14px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(112, 0, 255, 0.12), transparent 35%),
+                radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.12), transparent 35%);
+        }
+
+        /* HEADER & PROFILE BAR */
+        header {
+            background: rgba(21, 27, 38, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .player-stats {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--bg-main);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .xp-bar-container {
+            width: 120px;
+            height: 8px;
+            background: #263042;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .xp-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.4s ease;
+        }
+
+        /* MAIN LAYOUT */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.4rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(112, 0, 255, 0.15));
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+
+        .section-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* DASHBOARD CARDS */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--bg-card), #1a1f35);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .hero-text h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .game-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, var(--primary), #00b8d4);
+            color: #05080f;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: opacity 0.2s, transform 0.1s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card-hover);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-danger {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* GAME ARENAS */
+        .arena-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+
+        /* REACTION GAME */
+        .reaction-pad {
+            width: 100%;
+            height: 280px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            margin: 1.5rem 0;
+            transition: background-color 0.15s;
+            background: #1e293b;
+            border: 2px dashed var(--border);
+        }
+
+        .reaction-pad.waiting {
+            background: #b91c1c;
+            border-color: #ef4444;
+            color: white;
+        }
+
+        .reaction-pad.ready {
+            background: #15803d;
+            border-color: #22c55e;
+            color: white;
+        }
+
+        /* SNAKE GAME */
+        canvas#snakeCanvas {
+            background: #080b10;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            display: block;
+            margin: 1rem auto;
+            max-width: 100%;
+        }
+
+        .controls-hint {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+        }
+
+        /* GUESS GAME */
+        .guess-input-group {
+            display: flex;
+            gap: 0.8rem;
+            max-width: 360px;
+            margin: 1.5rem auto;
+        }
+
+        input[type="number"], input[type="text"] {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .feedback-banner {
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            margin-top: 1rem;
+            font-weight: 600;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ACHIEVEMENTS & LOGS */
+        .achievements-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        .badge-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0.45;
+            transition: all 0.3s;
+        }
+
+        .badge-card.unlocked {
+            opacity: 1;
+            border-color: var(--success);
+            background: linear-gradient(135deg, var(--bg-card), rgba(0, 230, 118, 0.08));
+        }
+
+        .badge-icon {
+            font-size: 2rem;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .history-table th, .history-table td {
+            padding: 0.9rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-table th {
+            background: rgba(0, 0, 0, 0.25);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .player-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">⚡ CyberArcade Hub</div>
+    <div class="player-stats">
+        <div class="stat-item">
+            <span class="stat-label">Level</span>
+            <span class="stat-value" id="ui-level">1</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">XP Progres</span>
+            <div class="xp-bar-container">
+                <div class="xp-bar-fill" id="ui-xp-bar"></div>
+            </div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Celkové XP</span>
+            <span class="stat-value" id="ui-xp">0</span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('hub')">🏠 Herný Hub</button>
+        <button class="tab-btn" onclick="switchTab('reaction')">⚡ Reflex Test</button>
+        <button class="tab-btn" onclick="switchTab('snake')">🐍 Cyber Hadík</button>
+        <button class="tab-btn" onclick="switchTab('guess')">🔐 Prelom Kód</button>
+        <button class="tab-btn" onclick="switchTab('profile')">🏆 Odznaky & História</button>
+    </div>
+
+    <!-- TAB 1: HUB -->
+    <section id="tab-hub" class="section-panel active">
+        <div class="hero-banner">
+            <div class="hero-text">
+                <h1>Vitaj späť, Hráč!</h1>
+                <p>Vyber si niektorú z mini-hier nižšie, zbieraj XP body, odomykaj odznaky a prekonávaj svoje vlastné rekordy. Všetok postup sa automaticky ukladá.</p>
+            </div>
+            <div style="min-width: 180px;">
+                <button class="btn btn-secondary" onclick="resetAllData()">Resetovať štatistiky</button>
+            </div>
+        </div>
+
+        <div class="games-grid">
+            <div class="game-card">
+                <div>
+                    <div class="game-icon">⚡</div>
+                    <h3>Reflexný Test</h3>
+                    <p>Otestuj rýchlosť svojich reakcií v milisekundách. Klikni hneď, ako sa plocha zmení na zelenú!</p>
+                </div>
+                <div>
+                    <div class="game-meta">
+                        <span>Najlepší čas:</span>
+                        <strong id="best-reaction" style="color: var(--primary);">-- ms</strong>
+                    </div>
+                    <button class="btn" onclick="switchTab('reaction')">Hrať Reflex Test</button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div>
+                    <div class="game-icon">🐍</div>
+                    <h3>Cyber Hadík</h3>
+                    <p>Klasická arkádovka v neónovom štýle. Zbieraj energetické jadrá, zväčšuj sa a nenaraz do steny.</p>
+                </div>
+                <div>
+                    <div class="game-meta">
+                        <span>Rekord skóre:</span>
+                        <strong id="best-snake" style="color: var(--primary);">0 bodov</strong>
+                    </div>
+                    <button class="btn" onclick="switchTab('snake')">Hrať Hadíka</button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div>
+                    <div class="game-icon">🔐</div>
+                    <h3>Prelom Kód (1–100)</h3>
+                    <p>Systém vygeneroval tajný číselný kód. Máš 7 pokusov na to, aby si ho uhádol pomocou nápovied.</p>
+                </div>
+                <div>
+                    <div class="game-meta">
+                        <span>Vyhraté hry:</span>
+                        <strong id="best-guess" style="color: var(--primary);">0x</strong>
+                    </div>
+                    <button class="btn" onclick="switchTab('guess')">Hrať Prelom Kód</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 2: REACTION GAME -->
+    <section id="tab-reaction" class="section-panel">
+        <div class="arena-box">
+            <h2>⚡ Reflexný Test</h2>
+            <p style="color: var(--text-muted); margin-top: 0.4rem;">Klikni na plochu pre štart. Počkaj na zelenú farbu a klikni čo najrýchlejšie!</p>
+            
+            <div id="reaction-pad" class="reaction-pad" onclick="handleReactionClick()">
+                Klikni sem pre začiatok
+            </div>
+
+            <p id="reaction-info" style="color: var(--primary); font-weight: 600;">Odmena: až +50 XP za rýchly reflex</p>
+        </div>
+    </section>
+
+    <!-- TAB 3: SNAKE GAME -->
+    <section id="tab-snake" class="section-panel">
+        <div class="arena-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>🐍 Cyber Hadík</h2>
+                <div style="font-size: 1.2rem; font-weight: 700;">Skóre: <span id="snake-score" style="color: var(--primary);">0</span></div>
+            </div>
+
+            <canvas id="snakeCanvas" width="400" height="400"></canvas>
+
+            <div style="max-width: 240px; margin: 1rem auto 0;">
+                <button class="btn" id="snake-start-btn" onclick="startSnakeGame()">Spustiť hru</button>
+            </div>
+            <p class="controls-hint">Ovládanie: Šípky na klávesnici alebo klávesy W, A, S, D</p>
+        </div>
+    </section>
+
+    <!-- TAB 4: GUESS GAME -->
+    <section id="tab-guess" class="section-panel">
+        <div class="arena-box">
+            <h2>🔐 Prelom Bezpečnostný Kód</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Zadaj číslo od <strong>1 do 100</strong>. Zostávajúce pokusy: <strong id="guess-attempts" style="color: var(--primary);">7</strong></p>
+
+            <div class="guess-input-group">
+                <input type="number" id="guess-input" min="1" max="100" placeholder="Tvoj tip (1-100)" onkeypress="if(event.key==='Enter') submitGuess()">
+                <button class="btn" style="width: auto;" onclick="submitGuess()">Overiť</button>
+            </div>
+
+            <div id="guess-feedback" class="feedback-banner">
+                Čakám na tvoj prvý tip...
+            </div>
+
+            <div style="max-width: 200px; margin: 1.2rem auto 0;">
+                <button class="btn btn-secondary" onclick="initGuessGame()">Nový kód</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 5: PROFILE & ACHIEVEMENTS -->
+    <section id="tab-profile" class="section-panel">
+        <h2 style="margin-bottom: 1rem;">🏆 Odomknuté odznaky</h2>
+        <div class="achievements-list" id="achievements-container"></div>
+
+        <h2 style="margin: 2.5rem 0 1rem;">📜 Posledné aktivity</h2>
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Hra / Udalosť</th>
+                    <th>Výsledok</th>
+                    <th>Získané XP</th>
+                </tr>
+            </thead>
+            <tbody id="history-tbody">
+                <tr><td colspan="3" style="color: var(--text-muted);">Zatiaľ žiadne záznamy. Zahraj si niečo!</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    CyberArcade Hub • Vytvorené v HTML5, CSS3 & Vanilla JS • Dáta uložené lokálne v prehliadači
+</footer>
+
+<script>
+    // --- STATE & STORAGE ---
+    const DEFAULT_STATE = {
+        xp: 0,
+        bestReaction: null,
+        bestSnake: 0,
+        guessWins: 0,
+        gamesPlayed: 0,
+        history: []
+    };
+
+    let state = JSON.parse(localStorage.getItem('cyberArcadeState')) || { ...DEFAULT_STATE };
+
+    const ACHIEVEMENTS = [
+        { id: 'first_game', title: 'Prvý štart', desc: 'Odohraj svoju prvú hru', icon: '🎮', check: s => s.gamesPlayed >= 1 },
+        { id: 'fast_hands', title: 'Bleskové reflexy', desc: 'Dosiahni čas pod 250 ms v Reflex Teste', icon: '⚡', check: s => s.bestReaction !== null && s.bestReaction < 250 },
+        { id: 'snake_master', title: 'Hadí kráľ', desc: 'Získaj aspoň 100 bodov v Cyber Hadíkovi', icon: '🐍', check: s => s.bestSnake >= 100 },
+        { id: 'hacker', title: 'Elite Hacker', desc: 'Prelom bezpečnostný kód 3-krát', icon: '🔓', check: s => s.guessWins >= 3 },
+        { id: 'level_5', title: 'Veterán arény', desc: 'Dosiahni Level 5 (500 XP)', icon: '👑', check: s => s.xp >= 500 }
+    ];
+
+    function saveState() {
+        localStorage.setItem('cyberArcadeState', JSON.stringify(state));
+        updateUI();
+    }
+
+    function addXP(amount, gameName, resultText) {
+        state.xp += amount;
+        state.gamesPlayed += 1;
+        state.history.unshift({ game: gameName, result: resultText, xp: `+${amount} XP` });
+        if (state.history.length > 10) state.history.pop();
+        saveState();
+    }
+
+    function resetAllData() {
+        if (confirm('Naozaj chceš vymazať všetky svoje XP, rekordy a odznaky?')) {
+            state = { ...DEFAULT_STATE };
+            saveState();
+        }
+    }
+
+    function updateUI() {
+        const level = Math.floor(state.xp / 100) + 1;
+        const currentLevelXP = state.xp % 100;
+
+        document.getElementById('ui-level').textContent = level;
+        document.getElementById('ui-xp').textContent = state.xp;
+        document.getElementById('ui-xp-bar').style.width = `${currentLevelXP}%`;
+
+        document.getElementById('best-reaction').textContent = state.bestReaction ? `${state.bestReaction} ms` : '-- ms';
+        document.getElementById('best-snake').textContent = `${state.bestSnake} bodov`;
+        document.getElementById('best-guess').textContent = `${state.guessWins}x`;
+
+        // Render Achievements
+        const achContainer = document.getElementById('achievements-container');
+        achContainer.innerHTML = ACHIEVEMENTS.map(ach => {
+            const unlocked = ach.check(state);
+            return `
+                <div class="badge-card ${unlocked ? 'unlocked' : ''}">
+                    <div class="badge-icon">${ach.icon}</div>
+                    <div>
+                        <div style="font-weight: 700;">${ach.title} ${unlocked ? '✅' : '🔒'}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">${ach.desc}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Render History
+        const tbody = document.getElementById('history-tbody');
+        if (state.history.length > 0) {
+            tbody.innerHTML = state.history.map(item => `
+                <tr>
+                    <td><strong>${item.game}</strong></td>
+                    <td>${item.result}</td>
+                    <td style="color: var(--success); font-weight: 700;">${item.xp}</td>
+                </tr>
+            `).join('');
+        }
+    }
+
+    // --- NAVIGATION ---
+    function switchTab(tabId) {
+        document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+        const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    // --- GAME 1: REACTION TEST ---
+    let reactionState = 'idle'; // idle | waiting | ready
+    let reactionTimeout = null;
+    let reactionStartTime = 0;
+
+    function handleReactionClick() {
+        const pad = document.getElementById('reaction-pad');
+        const info = document.getElementById('reaction-info');
+
+        if (reactionState === 'idle') {
+            reactionState = 'waiting';
+            pad.className = 'reaction-pad waiting';
+            pad.textContent = 'Priprav sa... Čakaj na zelenú!';
+            
+            const delay = Math.floor(Math.random() * 3000) + 1500;
+            reactionTimeout = setTimeout(() => {
+                reactionState = 'ready';
+                pad.className = 'reaction-pad ready';
+                pad.textContent = 'KLIKNI TERAZ!';
+                reactionStartTime = performance.now();
+            }, delay);
+
+        } else if (reactionState === 'waiting') {
+            clearTimeout(reactionTimeout);
+            reactionState = 'idle';
+            pad.className = 'reaction-pad';
+            pad.textContent = 'Príliš skoro! Klikni pre reštart.';
+            info.textContent = 'Klikol si skôr, ako naskočila zelená.';
+
+        } else if (reactionState === 'ready') {
+            const diff = Math.round(performance.now() - reactionStartTime);
+            reactionState = 'idle';
+            pad.className = 'reaction-pad';
+            pad.innerHTML = `<div>Tvoj čas: <span style="color: var(--primary); font-size: 2.2rem;">${diff} ms</span></div><div style="font-size: 1rem; margin-top: 0.5rem;">Klikni znova pre ďalší pokus</div>`;
+
+            let earnedXP = diff < 220 ? 50 : diff < 320 ? 30 : 15;
+            if (state.bestReaction === null || diff < state.bestReaction) {
+                state.bestReaction = diff;
+                info.textContent = `Nový osobný rekord! Získavaš +${earnedXP} XP`;
+            } else {
+                info.textContent = `Skvelý pokus! Získavaš +${earnedXP} XP`;
+            }
+            addXP(earnedXP, 'Reflex Test', `${diff} ms`);
+        }
+    }
+
+    // --- GAME 2: SNAKE ---
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    const gridSize = 20;
+    const tileCount = canvas.width / gridSize;
+
+    let snake = [];
+    let food = { x: 10, y: 10 };
+    let dx = 0;
+    let dy = 0;
+    let snakeScore = 0;
+    let snakeInterval = null;
+    let isSnakeRunning = false;
+
+    function startSnakeGame() {
+        snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+        dx = 1;
+        dy = 0;
+        snakeScore = 0;
+        isSnakeRunning = true;
+        document.getElementById('snake-score').textContent = snakeScore;
+        document.getElementById('snake-start-btn').textContent = 'Reštartovať hru';
+        spawnFood();
+
+        if (snakeInterval) clearInterval(snakeInterval);
+        snakeInterval = setInterval(gameLoopSnake, 110);
+    }
+
+    function spawnFood() {
+        food = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        };
+    }
+
+    function gameLoopSnake() {
+        if (!isSnakeRunning) return;
+
+        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+        // Wall or self collision
+        if (
+            head.x < 0 || head.x >= tileCount ||
+            head.y < 0 || head.y >= tileCount ||
+            snake.some(seg => seg.x === head.x && seg.y === head.y)
+        ) {
+            endSnakeGame();
+            return;
+        }
+
+        snake.unshift(head);
+
+        if (head.x === food.x && head.y === food.y) {
+            snakeScore += 10;
+            document.getElementById('snake-score').textContent = snakeScore;
+            spawnFood();
+        } else {
+            snake.pop();
+        }
+
+        drawSnake();
+    }
+
+    function drawSnake() {
+        ctx.fillStyle = '#080b10';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Food
+        ctx.fillStyle = '#ff0055';
+        ctx.beginPath();
+        ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2.3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw Snake
+        snake.forEach((seg, index) => {
+            ctx.fillStyle = index === 0 ? '#00f0ff' : '#00b8d4';
+            ctx.fillRect(seg.x * gridSize + 1, seg.y * gridSize + 1, gridSize - 2, gridSize - 2);
+        });
+    }
+
+    function endSnakeGame() {
+        isSnakeRunning = false;
+        clearInterval(snakeInterval);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('KONIEC HRY!', canvas.width / 2, canvas.height / 2 - 10);
+        ctx.font = '16px sans-serif';
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillText(`Získané skóre: ${snakeScore}`, canvas.width / 2, canvas.height / 2 + 20);
+
+        if (snakeScore > state.bestSnake) {
+            state.bestSnake = snakeScore;
+        }
+        const earnedXP = Math.max(10, Math.floor(snakeScore / 2));
+        addXP(earnedXP, 'Cyber Hadík', `${snakeScore} bodov`);
+    }
+
+    window.addEventListener('keydown', e => {
+        if (!isSnakeRunning) return;
+        const key = e.key.toLowerCase();
+        if ((key === 'arrowup' || key === 'w') && dy === 0) { dx = 0; dy = -1; e.preventDefault(); }
+        if ((key === 'arrowdown' || key === 's') && dy === 0) { dx = 0; dy = 1; e.preventDefault(); }
+        if ((key === 'arrowleft' || key === 'a') && dx === 0) { dx = -1; dy = 0; e.preventDefault(); }
+        if ((key === 'arrowright' || key === 'd') && dx === 0) { dx = 1; dy = 0; e.preventDefault(); }
+    });
+
+    // --- GAME 3: GUESS NUMBER ---
+    let secretCode = 0;
+    let attemptsLeft = 7;
+    let guessGameOver = false;
+
+    function initGuessGame() {
+        secretCode = Math.floor(Math.random() * 100) + 1;
+        attemptsLeft = 7;
+        guessGameOver = false;
+        document.getElementById('guess-attempts').textContent = attemptsLeft;
+        document.getElementById('guess-input').value = '';
+        document.getElementById('guess-feedback').textContent = 'Nový kód bol vygenerovaný. Hádaj!';
+        document.getElementById('guess-feedback').style.color = 'var(--text-main)';
+    }
+
+    function submitGuess() {
+        if (guessGameOver) return;
+        const input = document.getElementById('guess-input');
+        const val = parseInt(input.value, 10);
+        const feedback = document.getElementById('guess-feedback');
+
+        if (isNaN(val) || val < 1 || val > 100) {
+            feedback.textContent = '⚠️ Zadaj platné číslo od 1 do 100!';
+            return;
+        }
+
+        attemptsLeft--;
+        document.getElementById('guess-attempts').textContent = attemptsLeft;
+        input.value = '';
+
+        if (val === secretCode) {
+            guessGameOver = true;
+            const bonusXP = (attemptsLeft + 1) * 15;
+            state.guessWins += 1;
+            feedback.style.color = 'var(--success)';
+            feedback.textContent = `🎉 Gratulujem! Prelomil si kód ${secretCode} (+${bonusXP} XP)!`;
+            addXP(bonusXP, 'Prelom Kód', `Uhádnuté (${secretCode})`);
+        } else if (attemptsLeft === 0) {
+            guessGameOver = true;
+            feedback.style.color = 'var(--accent)';
+            feedback.textContent = `❌ Pokusy vypršali! Tajný kód bol ${secretCode}.`;
+            addXP(5, 'Prelom Kód', 'Neúspešný pokus');
+        } else if (val < secretCode) {
+            feedback.style.color = 'var(--primary)';
+            feedback.textContent = `⬆️ Tajný kód je VÄČŠÍ ako ${val}.`;
+        } else {
+            feedback.style.color = 'var(--primary)';
+            feedback.textContent = `⬇️ Tajný kód je MENŠÍ ako ${val}.`;
+        }
+    }
+
+    // INIT ON LOAD
+    updateUI();
+    initGuessGame();
+    drawSnake();
+</script>
+</body>
+</html>
